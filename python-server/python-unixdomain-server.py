@@ -2,6 +2,7 @@ import asyncio
 import os
 import socket
 import json
+import time
 
 
 async def handle_connection(reader, writer):
@@ -16,6 +17,8 @@ async def handle_connection(reader, writer):
             # 发送主机名和 IP 地址到客户端
             response = {'hostname': hostname, 'ip_address': ip_address}
             try:
+                await asyncio.sleep(5) 
+                # time.sleep(5)
                 writer.write(bytes(json.dumps(response), 'utf-8'))
                 await writer.drain()
             except ConnectionError:
