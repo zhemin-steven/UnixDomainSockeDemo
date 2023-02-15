@@ -15,9 +15,13 @@ async def handle_connection(reader, writer):
             ip_address = socket.gethostbyname(hostname)
             # 发送主机名和 IP 地址到客户端
             response = {'hostname': hostname, 'ip_address': ip_address}
-            writer.write(bytes(json.dumps(response), 'utf-8'))
-            await writer.drain()
-            writer.close()
+            try:
+                writer.write(bytes(json.dumps(response), 'utf-8'))
+                await writer.drain()
+            except ConnectionError:
+                # 客户端已经关闭连接，不需要再处理
+                print("writer closed")
+                writer.close()
     else:
         print('No data received from client')
 

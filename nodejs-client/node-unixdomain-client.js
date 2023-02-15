@@ -41,6 +41,9 @@ async function main() {
     console.log(`Sending request to server at ${socketPath}`);
     const response = await sendRequest('get_host_info');
     console.log(`Received response from server:`, response);
+    console.log(`Sending request1 to server at ${socketPath}`);
+    const response1 = await sendRequest('get_host_info');
+    console.log(`Received response1 from server:`, response1);
   } catch (err) {
     console.error(`Error occurred: ${err}`);
   }
